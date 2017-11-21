@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Report</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+<div class="page-header">
+    <h1>Report</h1>
+</div>
+<div class="container">
+    #foreach( $csvParser in $report.entrySet() )
+    <h2>${csvParser.getKey()} <small>(${csvParser.getValue().getRecordNumber()})</small></h2>
+
+    <table class="table table-condensed">
+        <tr>
+            <th>name</th>
+            <th>version</th>
+            #if( $csvParser.getValue().getHeaderMap().get('copyright') )
+            <th>revision</th>
+            #end
+            <th>license</th>
+            #if( $csvParser.getValue().getHeaderMap().get('copyright') )
+            <th>copyright</th>
+            #end
+        </tr>
+
+        #foreach( $record in $csvParser.getValue() )
+        <tr>
+            <td>$record.get("name")</td>
+            <td>$record.get("version")</td>
+            #if( $csvParser.getValue().getHeaderMap().get('copyright') )
+            <td>$record.get("revision")</td>
+            #end
+            <td>$record.get("license")</td>
+            #if( $csvParser.getValue().getHeaderMap().get('copyright') )
+            <td>$record.get("copyright")</td>
+            #end
+        </tr>
+        #end
+    </table>
+    #end
+</div>
+
+</body>
+</html>

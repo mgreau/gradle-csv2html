@@ -1,0 +1,8 @@
+apply plugin: org.mgreau.csv2html.Csv2HtmlPlugin
+
+
+csv2html{
+
+    csvFilesDir = new File('/tmp/csv2html/input')
+    htmlReportDir = new File('/tmp/csv2html/output')
+}
