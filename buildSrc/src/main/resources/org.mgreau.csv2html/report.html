@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Report</title>
+    <title>3rd party Dependencies Report</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
@@ -9,11 +9,17 @@
 </head>
 <body>
 <div class="page-header">
-    <h1>Report</h1>
+    <h1>3rd party Dependencies Report</h1>
 </div>
 <div class="container">
+    #foreach( $project in $report.keySet() )
+    <ul>
+        <li><a href="#${project}">$project</a></li>
+    </ul>
+    #end
+
     #foreach( $csvParser in $report.entrySet() )
-    <h2>${csvParser.getKey()} <small>(${csvParser.getValue().getRecordNumber()})</small></h2>
+    <h2 id="${csvParser.getKey()}">${csvParser.getKey()}</h2>
 
     <table class="table table-condensed">
         <tr>
@@ -23,6 +29,7 @@
             <th>revision</th>
             #end
             <th>license</th>
+            <th>url</th>
             #if( $csvParser.getValue().getHeaderMap().get('copyright') )
             <th>copyright</th>
             #end
@@ -35,7 +42,12 @@
             #if( $csvParser.getValue().getHeaderMap().get('copyright') )
             <td>$record.get("revision")</td>
             #end
-            <td>$record.get("license")</td>
+            #if( $record.get("license") != "" )
+            <td><a href="https://spdx.org/licenses/${record.get('license')}.html" target="${record.get('license')}">$record.get("license")</a></td>
+            #else
+            <td></td>
+            #end
+            <td><a href="${record.get('url')}" target="${record.get('name')}">$record.get("url")</a></td>
             #if( $csvParser.getValue().getHeaderMap().get('copyright') )
             <td>$record.get("copyright")</td>
             #end

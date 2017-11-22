@@ -61,7 +61,7 @@ class Csv2Html extends DefaultTask {
 
         final CSVFormat format = CSVFormat.RFC4180.withFirstRecordAsHeader();
         for(String csvfilename : (new FileNameByRegexFinder().getFileNames(csvFilesDir.path, /.*\.csv/))){
-            depsReport.put(csvfilename, format.parse(new BufferedReader(new FileReader(new File(csvfilename)))))
+            depsReport.put(csvfilename.split("/").last(), format.parse(new BufferedReader(new FileReader(new File(csvfilename)))))
         }
 
         VelocityEngine velocityEngine = new VelocityEngine()
