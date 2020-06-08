@@ -55,7 +55,7 @@ class Csv2Html extends DefaultTask {
 
     private void generateHTMLReport(){
 
-        File templateFile = new File(htmlReportDir, 'report.html')
+        File output = new File(htmlReportDir, 'report.html')
 
         Map<String, Object> depsReport = new HashMap<>()
 
@@ -70,7 +70,7 @@ class Csv2Html extends DefaultTask {
         VelocityContext context = new VelocityContext()
         context.put("report", depsReport)
 
-        evaluateTemplate(templateFile, velocityEngine, context, templateFile.name)
+        evaluateTemplate(output, velocityEngine, context, 'template-report.html')
     }
 
     protected static void evaluateTemplate(File outputFile, VelocityEngine velocityEngine, VelocityContext context, String template) {
